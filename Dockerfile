@@ -4,7 +4,7 @@ ENV DEBIAN_FRONTEND noninteractive
 
 WORKDIR /
 RUN apt-get update && \
-    apt-get install -y build-essential git libssl-dev libpcap-dev libsctp-dev libncurses5-dev
+    apt-get install -y build-essential git libssl-dev libpcap-dev libsctp-dev libncurses5-dev autoconf
 
 RUN git clone https://github.com/SIPp/sipp.git && \
     cd sipp && \
