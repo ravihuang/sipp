@@ -1,23 +1,17 @@
 FROM ubuntu:latest
-MAINTAINER = Jason M. Mills <jmmills@cpan.org>
+MAINTAINER = Ravi Huang <ravi.huang@gmail.com>
 ENV DEBIAN_FRONTEND noninteractive
-RUN apt-get update
-RUN apt-get install -y build-essential
-
-ADD https://github.com/SIPp/sipp/archive/v3.4.1.tar.gz /
-RUN tar -xzf /v3.4.1.tar.gz
-
-RUN apt-get install -y libssl-dev
-RUN apt-get install -y libpcap-dev
-RUN apt-get install -y libsctp-dev
-RUN apt-get install -y libncurses5-dev
-
-WORKDIR /sipp-3.4.1
-RUN ./configure --with-pcap --with-sctp --with-openssl --with-rtpstream
-RUN make install
 
 WORKDIR /
-RUN rm -rf v3.4.1.tar
-RUN rm -rf sipp-3.4.1
+RUN apt-get update && \
+    apt-get install -y build-essential git libssl-dev libpcap-dev libsctp-dev libncurses5-dev
+
+RUN git clone https://github.com/SIPp/sipp.git && \
+    cd sipp && \
+    ./configure --with-pcap --with-sctp --with-openssl --with-rtpstream && \
+    make install
+
+WORKDIR /
+RUN rm -rf sipp
 
 CMD sipp
