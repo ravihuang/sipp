@@ -8,7 +8,7 @@ RUN apt-get update && \
 
 RUN git clone https://github.com/SIPp/sipp.git && \
     cd sipp && \
-    ./configure --with-pcap --with-sctp --with-openssl --with-rtpstream && \
+    ./build.sh --with-pcap --with-sctp --with-openssl --with-rtpstream && \
     make install
 
 WORKDIR /
